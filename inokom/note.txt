@@ -1,0 +1,137 @@
+sudo service postgresql restart
+source inokom-venv/bin/activate 
+python3 /opt/inokom/odoo/odoo-bin -c /etc/odooinokom.conf
+
+source odoo-venv/bin/activate
+python3 /opt/strada/strada-base/strada-bin -c /etc/strada/strada.conf -u employee_app
+
+[options]
+; This is the password that allows database operations:
+admin_passwd = my_admin_passwd
+db_host = False
+db_port = False
+db_user = False
+db_password = False
+limit_time_real = 1000000
+
+addons_path =  /opt/csf/Strada/addons, /opt/csf/Strada/addons_custom, /opt/csf/Strada/addons_custom/CSF
+
+-d inokom1
+-d csf_pp
+
+ps aux | grep odoo
+sudo kill -9 2120
+
+cd /mnt/c/Users/
+sudo nano /etc/odoo16.conf
+dbfilter = sdsb_survey
+
+my_admin_passwd
+admin
+TAYFF9HFzVydGzr4
+
+git pull --all
+git checkout -b new exist
+
+git remote update
+git add .
+git status
+git commit -m '[IMP][VMS8S-1] Transport'
+git push -u origin VMS8S-1
+git merge --no-ff origin/VMS8S-1
+
+git commit -m '[IMP][CSF-4] AP enhancement'
+git commit -m '[IMP][ATS-53] Fix ATS'
+git commit -m '[FIX][PMTM-15-v2] defualt field value'
+git push -u origin CSF-4
+
+git merge --no-ff origin/CSF-4
+git merge --no-ff origin/CSF-4
+git merge --no-ff origin/ATS-56
+git merge --no-ff origin/ATS-56
+
+git checkout branch-name
+git checkout master
+git merge branch-name
+
+git reset --hard origin/main
+
+git stash
+git stash pop
+git pull --rebase origin master
+
+git tag <tagname>
+git push origin --tags
+git fetch --tags
+su 
+git checkout develop // the branch you want to merge commit into
+git cherry-pick master // the branch you want to get commit from
+
+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
+
+su postgres
+psql odoo16_sign
+drop table cascade;
+
+git remote update
+git checkout main-16.0
+git branch -D SP-136
+git checkout SP-136
+git stash save "hint_to_what_stash_contains"
+git stash list
+git stash apply stash@\{<STASH_NUMBER>\}
+git stash apply
+
+su postgres
+createdb -O postgres db_name
+pg_restore -d db_name /opt/odoo16/SIGNATURE.dump
+**remember to disable the outgoing mail server
+
+
+
+Vendor Page (1 company 1 page) 
+0. login 
+1. Vendor detail page - 
+- company description
+- contact
+
+3. Dashboard page
+- List permit to work - status (Pending, Approve, Reject, Hold) - 
+- Notification - 
+
+2. To Apply permit to work
+- (Validity 24 hour)
+    - Hot Work
+    - Confined Space Entry
+    - Electrical Isolation/High Voltage
+    - Others (Please Specify) :
+
+- (Validity 7 days)
+    - Construction
+    - Working at Height
+    - Others (Please Specify) :
+
+Fill up PAGE 1 - PAGE 2 excel file. 
+- Generate pdf as in excel
+
+Approved status
+
+4. Worker Page
+- List worker that allow enter -- 
+- List worker that not allowed enter -- reason
+HSE Induction application 
+
+5. Detail Worker
+
+
+Visitor Page
+- key in visitor page
+- name - contact - email -ic/passport -address -reason(others ..)
+
+
+
+permit close -
+
+HSE Inspection 
+
+area & owner - tengok dorang punya je
