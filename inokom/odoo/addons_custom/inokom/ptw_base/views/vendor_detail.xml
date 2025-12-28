@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="view_res_partner_vendor_list" model="ir.ui.view">
+        <field name="name">res.partner.vendor.list</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <list string="Vendor Details">
+                <field name="name" />
+                <field name="project_id" widget="many2many_tags" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_res_partner_vendor_form" model="ir.ui.view">
+        <field name="name">res.partner.vendor.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Details">
+                <div class="alert alert-warning oe_edit_only" role="alert" name="warning_tax" invisible="not same_vat_partner_id">
+                  A partner with the same <span><field name="vat_label" /></span> already exists (<field name="same_vat_partner_id" context="{'show_address': False, 'show_vat': False}"/>), are you sure you want to create a new one?
+                </div>
+                <div class="alert alert-warning oe_edit_only" role="alert" name="warning_company" invisible="not same_company_registry_partner_id">
+                  A partner with the same <span><field name="company_registry_label" /></span> already exists (<field name="same_company_registry_partner_id" context="{'show_address': False, 'show_vat': False}"/>), are you sure you want to create a new one?
+                </div>
+                <sheet>
+                    <field name="image_1920" widget='image' class="oe_avatar" options='{"preview_image": "avatar_128"}'/>
+                    <div class="oe_title mb24">
+                        <h1>
+                            <field id="company" options="{'line_breaks': False}" widget="text" class="text-break" name="name" default_focus="1" placeholder="e.g. Lumber Inc" invisible="not is_company" required="type == 'contact'"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <span class="o_form_label o_td_label o_address_type" name="address_name">
+                                <field name="type" invisible="is_company" readonly="user_ids" required="not is_company" class="fw-bold"/>
+                                <span invisible="not is_company">Address</span>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"
+                                    readonly="type == 'contact' and parent_id"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"
+                                    readonly="type == 'contact' and parent_id"/>
+                                <field name="city" placeholder="City" class="o_address_city"
+                                    readonly="type == 'contact' and parent_id"/>
+                                <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}"
+                                    readonly="type == 'contact' and parent_id" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"
+                                    readonly="type == 'contact' and parent_id"/>
+                                <div name="partner_address_country" class="d-flex justify-content-between">
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'
+                                        readonly="type == 'contact' and parent_id"/>
+                                </div>
+                            </div>
+                            <field name="vat" placeholder="e.g. BE0477472701" readonly="parent_id"/>
+                            <field name="company_project_id" widget="many2many_tags" invisible="not ptw_vendor"/>
+                        </group>
+                        <group>
+                            <field name="function" placeholder="e.g. Sales Director"
+                                invisible="is_company"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="mobile" widget="phone"/>
+                            <field name="email" widget="email" context="{'gravatar_image': True}" required="user_ids"/>
+                            <field name="website" string="Website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+                            <field name="title" options='{"no_open": True}' placeholder="e.g. Mister"
+                                invisible="is_company"/>
+                            <field name="lang" invisible="active_lang_count &lt;= 1"/>
+                            <field name="category_id" widget="many2many_tags" options="{'color_field': 'color'}"
+                                   placeholder='e.g. "B2B", "VIP", "Consulting", ...'/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page name='employee' string="Employee">
+                            <field name="child_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="project_id" widget="many2many_tags"/>
+                                    <field name="hse_induction_valid"/>
+                                    <field name="hse_induction_expired"/>                  
+                                </list>
+                            </field>
+                        </page>
+                        <page name='ptw' string="PTW List">
+                            <field name="ptw_line">
+                                <list create="false" delete="false" edit="false">
+                                    <field name="name"/>
+                                    <field name="project_id"/>
+                                    <field name="status"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="res_partner_vendor_action" model="ir.actions.act_window">
+        <field name="name">Vendor Details</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids"
+            eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('view_res_partner_vendor_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_res_partner_vendor_form')}),
+            ]" />
+        <field name="domain">[('ptw_vendor', '=', True),('is_company', '=', True)]</field>
+        <field name="context">{'default_ptw_vendor':True,'default_is_company':True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Vendor Details Found!
+            </p>
+        </field>
+    </record>
+</odoo>

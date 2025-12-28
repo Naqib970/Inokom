@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hse_project_kanban" model="ir.ui.view">
+        <field name="name">hse.project.kanban</field>
+        <field name="model">hse.project</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" class="o_kanban_small_column" create="true">
+                <field name="status" options='{"group_by_tooltip": {"requirements": "Description"}}'/>
+                <field name="name" />
+                <field name="pic" />
+                <!-- <progressbar field="status" colors='{"new": "success", "ongoing": "warning", "done": "danger"}'  /> -->
+                <templates>
+                        <!-- <t t-name="menu">
+                            <t t-if="widget.editable"><a role="menuitem" type="open" class="dropdown-item">Edit</a></t>
+                            <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
+                            <field name="color" widget="kanban_color_picker"/>
+                        </t> -->
+                        <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details d-flex flex-column justify-content-between">
+                                <div class="d-flex flex-column">
+                                    <field class="fw-bold fs-5" name="name"/>
+                                    <field name="pic" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_hse_project_list" model="ir.ui.view">
+        <field name="name">hse.project.list</field>
+        <field name="model">hse.project</field>
+        <field name="arch" type="xml">
+            <list string="Project">
+                <field name="name" />
+                <field name="pic" />
+                <field name="area_owner" />
+                <field name="vendor" />
+                <field name="status" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hse_project_form" model="ir.ui.view">
+        <field name="name">hse.project.form</field>
+        <field name="model">hse.project</field>
+        <field name="arch" type="xml">
+            <form string="Project">
+                <header>
+                    <field name="status" widget="statusbar" statusbar_visible="new,ongoing,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="pic" />
+                        <field name="area" />
+                    </group>
+                    <group>
+                        <field name="vendor" widget="many2many_tags" domain="[('ptw_vendor', '=', True),('is_company', '=', True)]" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                        <field name="partner_line" widget="many2many_tags"></field>
+                    </group>
+                    <field name="ptw_line">
+                        <list create="false" delete="false">
+                            <field name="name"/>
+                            <field name="vendor_id"/>
+                            <field name="status"/>
+                        </list>
+                    </field>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hse_project_search" model="ir.ui.view">
+        <field name="name">hse.project.search</field>
+        <field name="model">hse.project</field>
+        <field name="arch" type="xml">
+            <search string="Search Project">
+                <searchpanel>
+                    <field name="status" enable_counters="1" />
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="hse_project_action" model="ir.actions.act_window">
+        <field name="name">Project</field>
+        <field name="res_model">hse.project</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_ids"
+            eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_hse_project_kanban')}),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('view_hse_project_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_hse_project_form')}),
+            ]" />
+        <field name="search_view_id" ref="view_hse_project_search" />
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Project Found!
+            </p>
+        </field>
+    </record>
+</odoo>

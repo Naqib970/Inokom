@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_category_hse">
+            <field name="name">HSE</field>
+            <field name="sequence">116</field>
+        </record>
+        <record model="ir.module.category" id="module_category_hse_role">
+            <field name="name">HSE Role</field>
+            <field name="sequence">105</field>
+            <field name="visible" eval="0"/>
+            <field name="parent_id" ref="module_category_hse"/>
+        </record>
+        <record id="group_hse_role_user" model="res.groups">
+            <field name="name">USER</field>
+            <field name="category_id" ref="module_category_hse_role"/>
+        </record>
+        <record id="group_hse_role_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_category_hse_role"/>
+            <field name="implied_ids" eval="[(4, ref('group_hse_role_user'))]"/>
+        </record>
+        <record id="group_hse_role_hod" model="res.groups">
+            <field name="name">HOD</field>
+            <field name="category_id" ref="module_category_hse_role"/>
+            <field name="implied_ids" eval="[(4, ref('group_hse_role_manager'))]"/>
+        </record>
+        <record id="group_hse_role_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="module_category_hse_role"/>
+            <field name="implied_ids" eval="[(4, ref('group_hse_role_hod'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- main menu: CSF -->
+    <menuitem id="main_csf_menu"
+        name="HSE"
+        web_icon="ptw_base,static/description/icon.png"
+        groups="ptw_base.group_hse_role_user"
+        sequence="10" />
+
+    <menuitem id="menu_hse_ptw_menu"
+        name="PTW Application"
+        parent="ptw_base.main_csf_menu"
+        action="hse_ptw_action"
+        sequence="10" />
+        
+    <menuitem id="menu_hse_config_menu"
+        name="Configuration"
+        parent="ptw_base.main_csf_menu"
+        sequence="50" />
+
+    <menuitem id="menu_hse_project_menu"
+        name="Project"
+        parent="ptw_base.menu_hse_config_menu"
+        action="hse_project_action"
+        sequence="10" />
+    
+    <menuitem id="menu_hse_vendor_menu"
+        name="Vendor"
+        parent="ptw_base.menu_hse_config_menu"
+        action="res_partner_vendor_action"
+        sequence="20" />
+
+    <menuitem id="menu_hse_area_menu"
+        name="Area"
+        parent="ptw_base.menu_hse_config_menu"
+        action="action_hse_area"
+        sequence="30" />
+
+</odoo>

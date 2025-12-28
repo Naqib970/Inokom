@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hse_project,hse.project,model_hse_project,,1,1,1,1
+access_inokom_department,inokom.department,model_inokom_department,,1,1,1,1
+access_hse_ptw,hse.ptw,model_hse_ptw,,1,1,1,1
+access_hse_area,hse.area,model_hse_area,,1,1,1,1
+access_hse_ptw_employee_line,hse.ptw.employee.line,model_hse_ptw_employee_line,,1,1,1,1
+access_hse_ptw_tool_line,hse.ptw.tool.line,model_hse_ptw_tool_line,,1,1,1,1
+access_hse_ptw_inspection,hse.ptw.inspection,model_hse_ptw_inspection,,1,1,1,1
+
+

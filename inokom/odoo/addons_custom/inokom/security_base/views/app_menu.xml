@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- main menu: CSF -->
+    <menuitem id="main_security_menu"
+        name="Security"
+        web_icon="security_base,static/description/icon.png"
+        groups="security_base.group_security_role_user"
+        sequence="10" />
+    
+    <menuitem id="menu_security_vms_menu"
+        name="Visitor"
+        parent="security_base.main_security_menu"
+        action="action_security_vms"
+        sequence="10" />
+        
+    <menuitem id="menu_security_config_menu"
+        name="Configuration"
+        parent="security_base.main_security_menu"
+        sequence="50" />
+
+    <menuitem id="menu_security_config_purpose_menu"
+        name="Visit Purpose"
+        parent="security_base.menu_security_config_menu"
+        action="action_security_vms_visit_purpose"
+        sequence="10" />
+
+</odoo>

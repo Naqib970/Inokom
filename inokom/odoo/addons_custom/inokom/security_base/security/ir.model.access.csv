@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inokom_vms,inokom.vms,model_inokom_vms,,1,1,1,1
+access_inokom_vms_scan,inokom.vms.scan,model_inokom_vms_scan,,1,1,1,1
+access_inokom_vms_item,inokom.vms.item,model_inokom_vms_item,,1,1,1,1
+access_inokom_vms_purpose,inokom.vms.purpose,model_inokom_vms_purpose,,1,1,1,1
+
+

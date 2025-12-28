@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_partners_form_inokom_inherited" model="ir.ui.view">
+        <field name="name">view.res.partner.form.inokom.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field eval="1" name="priority" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='contact_addresses']" position="before">
+                <page string="Attachment" name="contact_attachment" invisible="not parent_id.ptw_vendor">
+                    <group>
+                        <field name="ic_passport" filename="ic_passport_filename"/>
+                        <field name="ic_passport_filename" invisible="1"/>
+                        <field name="work_permit" filename="work_permit_filename"/>
+                        <field name="work_permit_filename" invisible="1"/>
+                        <field name="cidb_green" filename="cidb_green_filename"/>
+                        <field name="cidb_green_filename" invisible="1"/>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[@name='sales_purchases']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="department" invisible="is_company or parent_id.ptw_vendor"/>
+                <field name="project_id" widget="many2many_tags" invisible="not parent_id.ptw_vendor"/>
+                <field name="id_no" invisible="is_company"/>
+                <field name="hse_induction_expired" invisible="is_company"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

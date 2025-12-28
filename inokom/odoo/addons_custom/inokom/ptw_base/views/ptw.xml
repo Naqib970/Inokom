@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hse_ptw_list" model="ir.ui.view">
+        <field name="name">hse.ptw.list</field>
+        <field name="model">hse.ptw</field>
+        <field name="arch" type="xml">
+            <list string="PTW">
+                <field name="name" />
+                <field name="vendor_id" />
+                <field name="project_id" />
+                <field name="status" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hse_ptw_form" model="ir.ui.view">
+        <field name="name">hse.ptw.form</field>
+        <field name="model">hse.ptw</field>
+        <field name="arch" type="xml">
+            <form string="PTW">
+                <header>
+                    <button string="Submit" type="object" name="action_submit" class="oe_highlight"
+                        groups="ptw_base.group_hse_role_user"
+                        invisible="status != 'new'"/>
+                    <button string="Approve" type="object" name="action_approve" class="oe_highlight"
+                        groups="ptw_base.group_hse_role_manager"
+                        invisible="status != 'pending'"/>
+                    <button string="Approve" type="object" name="action_hse_approve" class="oe_highlight"
+                        groups="ptw_base.group_hse_role_manager"
+                        invisible="status != 'pending_hse'"/>
+                    <button string="Reject" type="object" name="action_hse_reject" class="btn btn-danger"
+                        groups="ptw_base.group_hse_role_manager"
+                        invisible="status not in ['pending_hse','pending']"/>
+                    <button string="Hold" type="object" name="action_hse_hold" class="btn btn-warning"
+                        groups="ptw_base.group_hse_role_user"
+                        invisible="status != 'approve'"/>
+
+                    <field name="status" invisible="1"/>
+                    <field name="status" widget="statusbar" statusbar_visible="new,pending,approve" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_inspect_checklist" type="object" class="oe_stat_button" icon="fa-file">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Inspection</span>
+                            </div>
+                        </button>
+					</div>
+                    <div class="oe_title">
+                        <h1>
+                            <field class="text-break" options="{'line_breaks': False}" widget="text" name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Project Detail">
+                            <field name="vendor_id" />
+                            <field name="project_id" />
+                            <field name="project_owner" />
+                            <field name="project_owner_approve" invisible="1"/>
+                            <field name="project_owner_approve_date" invisible="not project_owner_approve" readonly="1"/>
+                            <field name="area" />
+                            <field name="area_owner" />
+                            <field name="area_owner_approve" invisible="1"/>
+                            <field name="area_owner_approve_date" invisible="not area_owner_approve" readonly="1"/>
+                            <field name="work_type" />
+                            <field name="hse_approve" invisible="1"/>
+                            <field name="hse_approve_date" invisible="not hse_approve" readonly="1"/>
+                        </group>
+                        <group string="Permit Issuer">
+                            <field name="permit_issuer" />
+                            <field name="permit_id_no" />
+                            <field name="permit_function" />
+                            <field name="permit_email" />
+                            <field name="permit_date" />
+                            <field name="permit_valid_until" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Attachment">
+                            <field name="employee_line" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="name" />
+                                    <field name="ic_passport" filename="ic_passport_filename" />
+                                    <field name="work_permit" filename="work_permit_filename" />
+                                    <field name="cidb_green" filename="cidb_green_filename" />
+                                </list>
+                                <form>
+                                    <sheet>
+                                        <field name="name" />
+                                        <field name="ic_passport" filename="ic_passport_filename" />
+                                        <field name="ic_passport_filename" invisible="1" />
+                                        <field name="work_permit" filename="work_permit_filename" />
+                                        <field name="work_permit_filename" invisible="1" />
+                                        <field name="cidb_green" filename="cidb_green_filename" />
+                                        <field name="cidb_green_filename" invisible="1" />
+                                    </sheet>
+                                </form>
+                            </field>
+                            <field name="tool_equipment" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="name" />
+                                </list>
+                            </field>
+                        </page>
+                        <page string="PTW Questionnaire &amp; Application">
+                            <group>
+                                <field name="general_score"/>
+                                <field name="machine_score"/>
+                            </group>
+                            <group string="General" invisible="not general_section">
+                                <field name="description_of_work_general"/>
+                                <field name="gantt_chart_general"/>
+                            </group>
+                            <group string="MACHINE and EQUIPMENT" invisible="not machine_section">
+                                <field name="hiradc_machine"/>
+                                <field name="license_machine"/>
+                                <field name="inspection_checklist_machine"/>
+                                <field name="ppe_checklist_machine"/>
+                            </group>
+                        </page>
+                        <page string="HSE Checklist">
+                            <group>
+                                <group string="CHECKLIST OF CONTROL MEASURES">
+                                    <field name="logout_tagout_cm"/>
+                                    <field name="hot_work_cm"/>
+                                    <field name="confined_space_cm"/>
+                                    <field name="work_height_cm"/>
+                                    <field name="lift_activity_cm"/>
+                                    <field name="machine_control_cm"/>
+                                    <field name="hazard_prevent_cm"/>
+                                    <field name="scheduled_waste_cm"/>
+                                    <field name="demolation_cm"/>
+                                    <field name="excavation_prevent_cm"/>
+                                    <field name="other_cm"/>
+                                </group>                            
+                                <group string="PERSONAL PROTECTIVE EQUIPMENT (PPE) COMPLIANCE">
+                                    <field name="head_protect"/>
+                                    <field name="hand_protect"/>
+                                    <field name="eye_protect"/>
+                                    <field name="face_protect"/>
+                                    <field name="foot_protect"/>
+                                    <field name="respiratory_protect"/>
+                                    <field name="hearing_protect"/>
+                                    <field name="body_protect"/>
+                                    <field name="fall_prevent_protect"/>
+                                    <field name="other_protect"/>
+                                </group>                            
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="view_hse_ptw_search" model="ir.ui.view">
+        <field name="name">hse.ptw.search</field>
+        <field name="model">hse.ptw</field>
+        <field name="arch" type="xml">
+            <search string="Search PTW">
+                <searchpanel>
+                    <field name="status" enable_counters="1" />
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="hse_ptw_action" model="ir.actions.act_window">
+        <field name="name">PTW</field>
+        <field name="res_model">hse.ptw</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids"
+            eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('view_hse_ptw_list')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_hse_ptw_form')}),
+            ]" />
+        <field name="search_view_id" ref="view_hse_ptw_search" />
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No PTW Found!
+            </p>
+        </field>
+    </record>
+</odoo>

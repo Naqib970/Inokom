@@ -1,0 +1,12 @@
+<data>
+    <record id="mail_act_ptw_reminder" model="mail.activity.type">
+        <field name="name">Reminder</field>
+        <field name="icon">fa-tasks</field>
+        <field name="res_model">hse.ptw</field>
+    </record>
+    <record id="mail_act_ptw_review" model="mail.activity.type">
+        <field name="name">To Follow Up</field>
+        <field name="icon">fa-phone</field>
+        <field name="res_model">hse.ptw</field>
+    </record>
+</data>
